@@ -1,0 +1,13 @@
+Feature: ChangePasswordAndLogginAgain
+
+  @Regression
+  Scenario: Cambiar password con la pagina abierta
+
+    Given la pagina este abierta y con sesion iniciada
+    And quiero ir a settings y cambiar el password
+      | old password | bordetella|
+      | new password | 321xxx---|
+    And quiero cerrar sesion y volver a iniciar sesion con el nuevo password
+      | email    | javiersilvasierra@outlook.com |
+      | password | 321xxx---                 |
+    Then tendria que lograr ingresar a la app web con las nuevas credenciales
