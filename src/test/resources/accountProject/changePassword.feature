@@ -3,7 +3,11 @@ Feature: ChangePasswordAndLogginAgain
   @Regression
   Scenario: Cambiar password con la pagina abierta
 
-    Given la pagina este abierta y con sesion iniciada
+    Given la pagina "http://todo.ly/" este abierta
+    When quiero realizar el login
+      | email    | javiersilvasierra@outlook.com|
+      | password | bordetella                 |
+    Then debo ingresar a la app web
     And quiero ir a settings y cambiar el password
       | old password | bordetella|
       | new password | 321xxx---|

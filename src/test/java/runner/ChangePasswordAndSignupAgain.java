@@ -3,8 +3,10 @@ package runner;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.junit.jupiter.api.Assertions;
 import page.*;
+import session.Session;
 
 import java.util.Map;
 
@@ -19,10 +21,23 @@ public class ChangePasswordAndSignupAgain
 
     MainPage mainPage = new MainPage();
     LoginModal loginModal = new LoginModal();
-    @Given("la pagina este abierta y con sesion iniciada")
-    public void laPaginaEsteAbiertaYConSesionIniciada()
-    {
-        Assertions.assertTrue(menuSection.logoutButton.isControlDisplayed(),   "ERROR no se inicio sesion");
+   // @Given("la pagina {string} este abierta")
+    //public void laPaginaEsteAbierta(String url) {
+     //   Session.getInstance().getBrowser().get(url);
+    //}
+
+    @When("quiero realizar el login")
+    public void yoQuieroRealizarElLogin(Map<String,String> credential) {
+        mainPage.loginButton.click();
+        loginModal.emailTxtBox.writeText(credential.get("email"));
+        loginModal.pwdTxtBox.writeText(credential.get("password"));
+        loginModal.loginButton.click();
+    }
+
+    @Then("debería ingresar a la app web")
+    public void deberiaIngresarALaAppWeb() {
+        Assertions.assertTrue(menuSection.logoutButton.isControlDisplayed(),
+                "ERROR el login fallo");
     }
 
     @And("quiero ir a settings y cambiar el password")
